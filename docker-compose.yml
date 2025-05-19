@@ -1,4 +1,3 @@
-version: '3'
 services:
   app:
     build:
@@ -25,8 +24,6 @@ services:
   db:
     image: mysql:8.0
     container_name: tecnofit-db
-    env_file:
-      - ./config/.env
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -37,7 +34,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - storage:/var/lib/mysql
+      - ./storage:/var/lib/mysql
+      - ./docker/mysql:/docker-entrypoint-initdb.d
     networks:
       - tecnofit-network
 

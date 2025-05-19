@@ -1,6 +1,6 @@
 <?php
 
-if ($envFile = fopen(__DIR__ . "/.env", "r")) {
+if ($envFile = fopen(__DIR__ . "/../.env", "r")) {
     while (($env = fgets($envFile)) !== false) {
         putenv($env);
     }
