@@ -13,6 +13,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www
 COPY . .
 RUN composer install
+RUN mkdir storage
 RUN chown -R www-data:www-data /var/www/storage
 
 EXPOSE 9000
