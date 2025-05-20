@@ -8,7 +8,7 @@ O repositório [mauriciohaygert/tecnofit](https://github.com/mauriciohaygert/tec
 * **`docker/`**: Configurações do Docker.
 * **`docker-compose.yml`**: Arquivo para orquestração dos serviços Docker.
 * **`.env`**: Variáveis de ambiente, como credenciais do banco de dados.
-
+* **`README.md`**: Arquivo gerado pelo ChatGPT 
 
 ### 🚀 Como Executar o Projeto
 

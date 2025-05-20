@@ -9,7 +9,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class RankingController
+class MovementController
 {
     public function __construct(
         public MovementRepository       $movements,
