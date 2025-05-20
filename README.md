@@ -1,5 +1,3 @@
-O repositório [mauriciohaygert/tecnofit](https://github.com/mauriciohaygert/tecnofit) implementa o desafio técnico de ranking de movimentos utilizando PHP puro e MySQL, conforme solicitado.
-
 ### 📁 Estrutura do Projeto
 
 * **`src/`**: Contém os arquivos principais do código-fonte.
@@ -28,11 +26,18 @@ O repositório [mauriciohaygert/tecnofit](https://github.com/mauriciohaygert/tec
    docker-compose up -d
    ```
 
+4. **Instalar as dependências:** Instale as depêndencias do PHP usando o composer na sua pasta local ou use o comando abaixo para executar através do Docker.
+
+   ```
+   docker exec -it tecnofit-app composer install
+
+   ```
+
 4. **Acessar o endpoint de ranking:**
    Após os serviços estarem em execução, você pode acessar o endpoint de ranking através de:
 
    ```
-   http://localhost:8000/ranking/movement/{nome}
+   http://localhost:8000/movement/{nome}/ranking
    ```
 
    Substitua `{nome}` pelo nome do movimento desejado, como `Deadlift`.
