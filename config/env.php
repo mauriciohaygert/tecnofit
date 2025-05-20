@@ -2,7 +2,7 @@
 
 if ($envFile = fopen(__DIR__ . "/../.env", "r")) {
     while (($env = fgets($envFile)) !== false) {
-        putenv($env);
+        putenv(trim($env));
     }
     fclose($envFile);
 }

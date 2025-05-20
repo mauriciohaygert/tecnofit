@@ -2,6 +2,7 @@
 
 namespace App\Model\Repository;
 
+use App\Model\PersonalRecord;
 use PDO;
 
 class PersonalRecordRepository
@@ -9,24 +10,19 @@ class PersonalRecordRepository
     public function __construct(private PDO $pdo)
     {
     }
-    public function all(): array
-    {
-        $videoList = $this->pdo
-            ->query('SELECT * FROM videos;')
-            ->fetchAll(\PDO::FETCH_ASSOC);
-        return array_map(
-            $this->hydrateVideo(...),
-            $videoList
-        );
-    }
 
-    public function find(int $id)
+     public function userRankByMovement($movementId)
     {
-        $statement = $this->pdo->prepare('SELECT * FROM videos WHERE id = ?;');
-        $statement->bindValue(1, $id, \PDO::PARAM_INT);
+        $statement = $this->pdo->prepare(
+            "SELECT user.name AS user, MAX(personal_record.value) AS record, 
+            MAX(personal_record.date) AS date
+            FROM personal_record
+            JOIN user ON user.id = personal_record.user_id
+            WHERE movement_id = :movementId
+            GROUP BY user.id
+            ORDER BY record DESC, date ASC");
+        $statement->bindValue('movementId', $movementId, \PDO::PARAM_INT);
         $statement->execute();
-
-        return $this->hydrateVideo($statement->fetch(\PDO::FETCH_ASSOC));
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
-
 }

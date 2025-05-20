@@ -1,27 +1,20 @@
 <?php
 
-use App\Controller\Error404Controller;
+use League\Route\Router;
 use Nyholm\Psr7Server\ServerRequestCreator;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 require __DIR__.'/../vendor/autoload.php';
-$routes = require_once __DIR__ . '/../config/env.php';
-$routes = require_once __DIR__ . '/../config/routes.php';
-$diContainer = require_once __DIR__ . '/../config/di.php';
-
-$pathInfo = $_SERVER['REQUEST_URI'] ?? '/';
-$httpMethod = $_SERVER['REQUEST_METHOD'];
-
-$key = "$httpMethod|$pathInfo";
-if (array_key_exists($key, $routes)) {
-    $controllerClass = $routes["$httpMethod|$pathInfo"];
-
-    $controller = $diContainer->get($controllerClass);
-} else {
-    $controller = new Error404Controller();
-}
+require __DIR__ . '/../config/env.php';
 
 $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
+
+/** @var ContainerInterface $diContainer */
+$diContainer = require_once __DIR__ . '/../config/di.php';
+
+/** @var Router $router */
+$router = require_once(__DIR__ . '/../config/router.php');
 
 $creator = new ServerRequestCreator(
     $psr17Factory, // ServerRequestFactory
@@ -29,10 +22,7 @@ $creator = new ServerRequestCreator(
     $psr17Factory, // UploadedFileFactory
     $psr17Factory,  // StreamFactory
 );
-$request = $creator->fromGlobals();
-
-/** @var \Psr\Http\Server\RequestHandlerInterface $controller */
-$response = $controller->handle($request);
+$response = $router->dispatch($creator->fromGlobals());
 
 http_response_code($response->getStatusCode());
 foreach ($response->getHeaders() as $name => $values) {
@@ -41,4 +31,4 @@ foreach ($response->getHeaders() as $name => $values) {
     }
 }
 
-echo $response->getBody();
+printf($response->getBody());
