@@ -33,7 +33,7 @@ class RankingController
         $ranking = $this->ranking($this->personalRecords->userRankByMovement($movement->id));
 
         $this->jsonResponse([
-            'movimento' => $movement->name,
+            'movement' => $movement->name,
             'ranking' => $ranking
         ]);
 
@@ -55,7 +55,7 @@ class RankingController
                 'user' => $record['user'],
                 'record' => (float)$record['record'],
                 'rank' => $currentRank,
-                'date' => date('dd-mm-Y', strtotime($record['date']))
+                'date' => date('d-m-Y', strtotime($record['date']))
             ];
         }
         return $ranked;
