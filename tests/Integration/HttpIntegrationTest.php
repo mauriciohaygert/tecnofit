@@ -9,16 +9,12 @@ class HttpIntegrationTest extends TestCase
 {
     public function testEndpointReturnsExpectedJson()
     {
-        $routes = [
-            '/ranking/movement/Deadlift',
-            '/ranking/movement/1',
-            '/movement/1/ranking',
-            '/movement/Deadlift/ranking'
-        ];
+        $routes = $this->getRoutes();
         foreach ($routes as $route) {
             $this->endpointGETReturnsExpectedJson($route);
         }
     }
+
     public function endpointGETReturnsExpectedJson($route): void
     {
         $client = new Client(['base_uri' => 'http://localhost:8000']);
@@ -32,5 +28,15 @@ class HttpIntegrationTest extends TestCase
         $this->assertArrayHasKey('movement', $data);
         $this->assertArrayHasKey('ranking', $data);
         $this->assertEquals('Deadlift', $data['movement']);
+    }
+
+    public function getRoutes(): array
+    {
+        return [
+            '/ranking/movement/Deadlift',
+            '/ranking/movement/1',
+            '/movement/1/ranking',
+            '/movement/Deadlift/ranking'
+        ];
     }
 }

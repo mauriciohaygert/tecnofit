@@ -1,0 +1,17 @@
+# PHPStorm
+.idea/
+*.iml
+
+# Composer
+/vendor/
+/composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+/build/
+coverage.xml
+clover.xml
+test-output/
+coverage/
+
+storage/

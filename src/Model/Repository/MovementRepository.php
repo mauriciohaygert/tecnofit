@@ -32,5 +32,4 @@ class MovementRepository
 
         return $movement;
     }
-
 }

@@ -17,7 +17,6 @@ class MovementController
         public Response                 $response
     )
     {
-
     }
 
     public function rankingMovementAction(ServerRequestInterface $request, array $args): ResponseInterface
@@ -46,7 +45,7 @@ class MovementController
         $lastRecord = 0;
         $currentRank = 0;
 
-        foreach ($ranking as $key => $record) {
+        foreach ($ranking as $record) {
             if ($record['record'] !== $lastRecord) {
                 $lastRecord = $record['record'];
                 $currentRank++;

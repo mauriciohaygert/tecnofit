@@ -15,7 +15,6 @@ class PersonalRecord
         private string   $date
     )
     {
-
     }
 
     public function getId(): int
